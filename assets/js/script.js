@@ -1,61 +1,61 @@
 // array variable for tasks and time
 var tasks = [
     {
-        id: 8,
+        id: 0,
         txtHour: "8AM",
         hour: 08,
         txtTask: ""
     },
     {
-        id: 9,
+        id: 1,
         txtHour: "9AM",
         hour: 09,
         txtTask: ""
     },
     {
-        id: 10,
+        id: 2,
         txtHour: "10AM",
         hour: 10,
         txtTask: ""
     },
     {
-        id: 11,
+        id: 3,
         txtHour: "11AM",
         hour: 11,
         txtTask: ""
     },
     {
-        id: 12,
+        id: 4,
         txtHour: "12PM",
         hour: 12,
         txtTask: ""
     },
     {
-        id: 1,
+        id: 5,
         txtHour: "1PM",
         hour: 13,
         txtTask: ""
     },
     {
-        id: 2,
+        id: 6,
         txtHour: "2PM",
         hour: 14,
         txtTask: ""
     },
     {
-        id: 3,
+        id: 7,
         txtHour: "3PM",
         hour: 15,
         txtTask: ""
     },
     {
-        id: 4,
+        id: 8,
         txtHour: "4PM",
         hour: 16,
         txtTask: ""
     },
     {
-        id: 5,
+        id: 9,
         txtHour: "5PM",
         hour: 17,
         txtTask: ""
@@ -111,6 +111,29 @@ tasks.forEach(function(dayHour) {
 
    // append timeRow column to the parent
    $(".container").append(timeRow);
-   
+   // append timeCol, taskCol, saveCol to the timeRow
+   timeRow.append(timeCol, taskCol, saveCol);
+})
 
+// load local storage to the variable
+var today = JSON.parse(localStorage.getItem("tasks"));
+
+// if local storage exists assign var
+if (today) {
+    tasks = today;
+}
+
+//save and render tasks
+saveTasks();
+displayTasks();
+
+// click event save button
+$(".saveBtn").on("click", function(event) {
+    event.preventDefault();
+    // Variable to find the index of the textarea to the save button
+    var index = $(this).parents(".row").find("textarea").attr("id");
+    // set the task to the right value in the textbox
+    tasks[index].txtTask = $(this).parents(".row").find("textarea").val();
+    //save tasks
+    saveTasks();
 })
